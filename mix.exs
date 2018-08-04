@@ -22,9 +22,8 @@ defmodule Crawler.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:httpoison, "~> 1.2.0"},
+      {:hackney, "~> 1.13.0"},
       {:gen_stage, "~> 0.14.0"},
-      {:gun, "~> 1.0.0-pre.5"},
       {:jason, "~> 1.1.1"},
       {:floki, "~> 0.20.3"}
       # {:dep_from_hexpm, "~> 0.3.0"},

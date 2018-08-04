@@ -1,5 +1,5 @@
 defmodule HackneyStage do
-  def get(url, fin_cb \\ &IO.inspect(&1), events_cb \\ &IO.inspect(&1)) do
+  def get(url, fin_cb \\ &(&1), events_cb \\ &(&1)) do
     {:ok, producer} = HackneyStage.Producer.start_link(url)
     {:ok, consumer} = HackneyStage.Consumer.start_link(fin_cb, events_cb)
 
@@ -7,7 +7,7 @@ defmodule HackneyStage do
   end
 
   @test_url "https://en.wikipedia.org/wiki/Wikipedia"
-  def test, do: HackneyStage.get(@test_url, &(&1), &(&1))
+  def test, do: HackneyStage.get(@test_url)
 end
 
 defmodule HackneyStage.Producer do
