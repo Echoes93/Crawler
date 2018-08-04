@@ -1,18 +1,12 @@
 defmodule Crawler do
-  @moduledoc """
-  Documentation for Crawler.
-  """
+  @moduledoc false
 
-  @doc """
-  Hello world.
+  use Application
 
-  ## Examples
+  def start(_type, _args) do
+    children = []
 
-      iex> Crawler.hello
-      :world
-
-  """
-  def hello do
-    :world
+    opts = [strategy: :one_for_one, name: Crawler.Supervisor]
+    Supervisor.start_link(children, opts)
   end
 end
