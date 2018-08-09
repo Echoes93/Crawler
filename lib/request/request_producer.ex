@@ -10,6 +10,7 @@ defmodule Crawler.Request.Producer do
     {:producer, body_ref}
   end
 
+
   def handle_cast(:consumed, state) do
     {:stop, :normal, state}
   end
