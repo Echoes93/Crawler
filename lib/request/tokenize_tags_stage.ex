@@ -10,12 +10,12 @@ defmodule Crawler.Request.TokenizeTagsStage do
   end
 
   def handle_events(tags, _from, state) do
-    t = tags
-    {:noreply, [], [t | state]}
+    {:noreply, [], state ++ tags }
   end
 
   def terminate(:normal, state) do
     IO.puts "terminated!!!"
-    IO.inspect(state)
+    File.write!('./tags.txt', state)
+    IO.puts("done")
   end
 end
