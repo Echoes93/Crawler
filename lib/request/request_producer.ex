@@ -11,15 +11,18 @@ defmodule Crawler.Request.Producer do
   end
 
 
-  def handle_cast(:consumed, state) do
+  def handle_cast(:end, state) do
     {:stop, :normal, state}
   end
 
   def handle_demand(demand, body_ref) when demand > 0 do
     chunks = Enum.reduce_while(0..demand, [], fn(_, acc) ->
       case :hackney.stream_body(body_ref) do
-        {:ok, data} -> {:cont, acc ++ [data]}
-        _ -> {:halt, [:drained, acc]}
+        {:ok, data} ->
+          {:cont, acc ++ [data]}
+        _ ->
+          GenStage.cast(self(), :end)
+          {:halt, acc}
       end
     end)
 

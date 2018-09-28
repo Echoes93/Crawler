@@ -8,6 +8,16 @@ defmodule Crawler.Request do
     GenStage.sync_subscribe(consumer, to: producer, max_demand: 10, min_demand: 5)
   end
 
+  def get_tokens(url) do
+    {:ok, producer} = Request.Producer.start_link(url)
+    {:ok, producer_consumer} = Crawler.Request.ParseTagsStage.start_link()
+    {:ok, consumer} = Crawler.Request.TokenizeTagsStage.start_link()
+
+
+    GenStage.sync_subscribe(consumer, to: producer_consumer, max_demand: 10, min_demand: 5)
+    GenStage.sync_subscribe(producer_consumer, to: producer, max_demand: 10, min_demand: 5)
+  end
+
 
   def test do
     pid = self()

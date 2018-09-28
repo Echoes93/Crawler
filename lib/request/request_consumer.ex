@@ -10,20 +10,16 @@ defmodule Crawler.Request.Consumer do
   end
 
 
-  def handle_events([:drained, chunks], {pid, _ref}, {state, {fin_cb, _events_cb}}) do
-    final_state = Enum.reduce(chunks, state, &(&2 <> &1))
-
-    fin_cb.(final_state)
-    GenStage.cast(pid, :consumed)
-
-    {:stop, :normal, final_state}
-  end
-
   def handle_events(chunks, _from, {state, {_fin_cb, events_cb} = callbacks}) do
     new_state = Enum.reduce(chunks, state, &(&2 <> &1))
 
     events_cb.(chunks)
 
     {:noreply, [], {new_state, callbacks}}
+  end
+
+  def terminate(:normal, {state, {fin_cb, _events_cb}}) do
+    IO.puts "terminated!!!"
+    fin_cb.(state)
   end
 end

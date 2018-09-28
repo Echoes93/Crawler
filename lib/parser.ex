@@ -1,15 +1,13 @@
 defmodule Crawler.Parser do
-  def test, do: parse("ASDF #LONDON IS THE $CAPITAL$ OF _GREAT BRITAIN_ \%")
+  def parse_tags(input), do: parse_tags(input, [], "")
 
-  def parse(input), do: parse(input, [], "")
+  def parse_tags("", list, buffer), do: {Enum.reverse(list), buffer}
 
-  def parse("", list, buffer), do: [buffer | list]
-
-  def parse(<<codepoint :: utf8, rest :: binary>>, list, buffer) do
+  def parse_tags(<<codepoint :: utf8, rest :: binary>>, list, buffer) do
     case value(codepoint) do
-      :open_token -> parse(rest, [buffer | list], <<codepoint>>)
-      :close_token -> parse(rest, [buffer <> <<codepoint>> | list], "")
-      :data -> parse(rest, list, buffer <> <<codepoint>>)
+      :open_token -> parse_tags(rest, [buffer | list], <<codepoint>>)
+      :close_token -> parse_tags(rest, [buffer <> <<codepoint>> | list], "")
+      :data -> parse_tags(rest, list, buffer <> <<codepoint>>)
     end
   end
 
