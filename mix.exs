@@ -22,7 +22,8 @@ defmodule Crawler.MixProject do
   defp deps do
     [
       {:hackney, "~> 1.13.0"},
-      {:gen_stage, "~> 0.14.0"}
+      {:gen_stage, "~> 0.14.0"},
+      {:mochiweb, "~> 2.18.0"}
     ]
   end
 end
