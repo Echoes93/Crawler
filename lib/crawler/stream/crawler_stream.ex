@@ -1,7 +1,7 @@
-defmodule Crawler.Request.Stream do
+defmodule Crawler.Stream do
   alias Crawler.Parser
 
-  def get(url) do
+  def get_tree(url) do
     url
     |> get_stream
     |> parse_tags

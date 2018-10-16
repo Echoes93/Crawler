@@ -1,4 +1,4 @@
-defmodule Crawler.Request.Producer do
+defmodule Crawler.Stage.Producer do
   use GenStage
 
   def start_link(url) do

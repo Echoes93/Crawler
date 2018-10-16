@@ -1,4 +1,4 @@
-defmodule Crawler.Request.ParseTagsStage do
+defmodule Crawler.Stage.ParseTags do
   use GenStage
 
   alias Crawler.Parser
