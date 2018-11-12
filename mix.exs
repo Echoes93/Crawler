@@ -23,7 +23,8 @@ defmodule Crawler.MixProject do
     [
       {:hackney, "~> 1.13.0"},
       {:gen_stage, "~> 0.14.0"},
-      {:mochiweb, "~> 2.18.0"}
+      {:mochiweb, "~> 2.18.0"},
+      {:benchee, "~> 0.13.2", only: :dev}
     ]
   end
 end
