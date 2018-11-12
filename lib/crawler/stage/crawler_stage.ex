@@ -1,11 +1,11 @@
 defmodule Crawler.Stage do
   alias Crawler.Stage
 
-  def get_tree(url, opts \\ []) do
+  def get_tree(uri, opts \\ []) do
     source_mod = Keyword.get(opts, :source_mod, Crawler.HTTPSource)
     callback = Keyword.get(opts, :callback, &(&1))
 
-    {:ok, producer} = Stage.Producer.start_link(url, source_mod)
+    {:ok, producer} = Stage.Producer.start_link(uri, source_mod)
     {:ok, parse_stage} = Crawler.Stage.ParseTags.start_link()
     {:ok, assemble_stage} = Crawler.Stage.AssembleTree.start_link(callback)
 
