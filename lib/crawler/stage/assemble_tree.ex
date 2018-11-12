@@ -9,9 +9,14 @@ defmodule Crawler.Stage.AssembleTree do
     {:consumer, state}
   end
 
+
   def handle_events(tags, _from, {state, callback}) do
     tokens = Enum.flat_map(tags, &:mochiweb_html.tokens(&1))
     {:noreply, [], {state ++ tokens, callback}}
+  end
+
+  def handle_cancel(_, _from, state) do
+    {:stop, :normal, state}
   end
 
   def terminate(:normal, {state, callback}) do

@@ -20,4 +20,8 @@ defmodule Crawler.Stage.ParseTags do
 
     {:noreply, Enum.reverse(tags_list), remainer}
   end
+
+  def handle_cancel(_, _from, state) do
+    {:stop, :normal, state}
+  end
 end
