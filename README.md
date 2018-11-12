@@ -3,6 +3,8 @@
 This project is my personal study on Elixirs `Streams` and `Stages`. If you are looking for Elixir based web crawler - there is one [Crawler](https://github.com/fredwu/crawler), which you might want to use.
 
 ## Performance benchmark
+
+Benchee performance test `Crawler.Stream.get_tree` vs `Crawler.Stage.get_tree` sourcing `/benchmarks/RFC7540.html` file. 
 ```
 Operating System: Windows"
 CPU Information: Intel(R) Core(TM) i7-7500U CPU @ 2.70GHz
